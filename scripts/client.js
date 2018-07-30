@@ -54,7 +54,7 @@ function displayEmployeeArray(){
     $('#tableBody').empty();
     $('#tableBody').append('<tr><th>First Name</th><th>Last Name</th><th>ID Number</th><th>Job Title</th><th>Salary</th><th>  </th></tr>');
     for (employee of employees){
-        $('#tableBody').append('<tr><td>'+ (employee.fname).toUpperCase()+'</td><td>'+ (employee.lname).toUpperCase()+'</td><td>'+ employee.number+'</td><td>'+ (employee.job).toUpperCase()+'</td><td> $'+ parseInt(employee.salaryAmount).toFixed(2) + '</td><td><button class="deleteButton" type="button" data-salary="'+ parseInt(employee.salaryAmount) +'">Delete Info</button></tr>');
+        $('#tableBody').append('<tr><td>'+ (employee.fname).toUpperCase()+'</td><td>'+ (employee.lname).toUpperCase()+'</td><td>'+ employee.number+'</td><td>'+ (employee.job).toUpperCase()+'</td><td> $'+ parseInt(employee.salaryAmount).toFixed(2) + '</td><td><button class="deleteButton" type="button" data-salary="'+ parseInt(employee.salaryAmount) +'" data-employee-number="'+ employee.number +'">Delete Info</button></tr>');
     }
 }
 
@@ -100,10 +100,21 @@ function clickDeleteButton(){
         console.log('working delete button');
         $(this).parent().parent().remove(); 
         console.log($(this).parent());
-        console.log(this.getAttribute('data-salary'));
+       /*  console.log(this.getAttribute('data-salary'));
         let thisSalary= -Math.abs(this.getAttribute('data-salary'));
         salaries.push(thisSalary);
-        calculateTotalSalaryCost();
+        calculateTotalSalaryCost(); */
+        console.log(this.getAttribute('data-employee-number'));
+        let employeeNumberData = this.getAttribute('data-employee-number');
+        for (let employee of employees) {
+            if (employeeNumberData == employee.number){
+                console.log('employees',employees);
+                console.log(employee.number);
+                employees.splice((employees.indexOf(employee)),1)
+                console.log(employees);
+
+            }
+        }
 
     })
 };
