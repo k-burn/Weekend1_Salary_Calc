@@ -1,7 +1,6 @@
 console.log('JS is properly sourced in');
 
 let employees =[];
-let salaries = [];
 
 class Employee{
     constructor( fName, lName, employeeNumber, jobTitle, salaryAmount ){
@@ -39,8 +38,6 @@ function collectInputData(){
     let inputTitle = $('#jobTitleInput').val();
     let inputSalary = $('#salaryInput').val();
     console.log(inputFName, inputLName, inputNumber, inputSalary, inputTitle);
-    salaries.push(inputSalary);
-    console.log(salaries);
     
 };
 
@@ -110,6 +107,7 @@ function clickFindByNumberButton(){
     $('#findButton').on('click', function(){
         console.log('button works')
         findEmployeeByNumber()
+        $("#employeeFind").val("");
     })
 }
  
@@ -118,7 +116,7 @@ function findEmployeeByNumber(){
     for (let employee of employees) {
         if (searchEmployeeNumber == employee.number){
             console.log(employee);
-            displayEmployeeInformation()
+            displayEmployeeInformation();
 
         }
     }
