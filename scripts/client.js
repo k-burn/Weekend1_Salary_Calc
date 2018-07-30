@@ -16,7 +16,6 @@ class Employee{
 $('document').ready(function(){
     clickSubmitButton()
     clickDeleteButton()
-    clickFindByNameButton()
     clickFindByNumberButton()
 });
 
@@ -111,39 +110,23 @@ function clickDeleteButton(){
 function clickFindByNumberButton(){
     $('#findButton').on('click', function(){
         console.log('button works')
-        removeEmployeeByNumber()
-    })
-}
-function clickFindByNameButton(){
-    $('#findByNameButton').on('click', function(){
-        console.log('button worksss')
-        removeEmployeeByName()
+        findEmployeeByNumber()
     })
 }
  
-function removeEmployeeByNumber(){
+function findEmployeeByNumber(){
     let searchEmployeeNumber = $('#employeeFind').val();
     for (let employee of employees) {
         if (searchEmployeeNumber == employee.number){
             console.log(employee);
-            employees.splice(employees.indexOf(employee), 1);
-            displayEmployeeArray();
+            displayEmployeeInformation()
 
         }
     }
-    calculateTotalSalaryCost()
+
+}
+function displayEmployeeInformation(){
+    $('#employeeInfo').empty();
+    $('#employeeInfo').append('<ul> <li>Name: '+(employee.fname).toUpperCase() +' '+ (employee.lname).toUpperCase() +'</li><li>Job Title: '+ (employee.job).toUpperCase() +'</li><li>Salary: $'+ (employee.salaryAmount) +'</li></ul> ');
 }
 
-function removeEmployeeByName(){
-    let searchEmployeeFName = $('#fNameFind').val();
-    let searchEmployeeLName = $('#lNameFind').val();
-    for (let employee of employees) {
-        if (searchEmployeeFName == employee.fname && searchEmployeeLName == employee.lname){
-            console.log(searchEmployeeFName);
-            employees.splice(employees.indexOf(employee), 1);
-            displayEmployeeArray();
-
-        }
-    }
-    calculateTotalSalaryCost()
-}
