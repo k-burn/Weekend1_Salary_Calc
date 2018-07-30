@@ -107,23 +107,29 @@ function clickFindByNumberButton(){
     $('#findButton').on('click', function(){
         console.log('button works')
         findEmployeeByNumber()
-        $("#employeeFind").val("");
+    
     })
 }
  
 function findEmployeeByNumber(){
     let searchEmployeeNumber = $('#employeeFind').val();
+    $('#employeeInfo').empty();
     for (let employee of employees) {
         if (searchEmployeeNumber == employee.number){
             console.log(employee);
-            displayEmployeeInformation();
-
+            $('#employeeInfo').append('<ul> <li>Name: '+(employee.fname).toUpperCase() +' '+ (employee.lname).toUpperCase() +'</li><li>Job Title: '+ (employee.job).toUpperCase() +'</li><li>Salary: $'+ (employee.salaryAmount) +'</li></ul> ')
+            
         }
+        else {
+            console.log('not right');
+            
+        }
+    $('#employeeFind').val("");
     }
 
 }
 function displayEmployeeInformation(){
-    $('#employeeInfo').empty();
     $('#employeeInfo').append('<ul> <li>Name: '+(employee.fname).toUpperCase() +' '+ (employee.lname).toUpperCase() +'</li><li>Job Title: '+ (employee.job).toUpperCase() +'</li><li>Salary: $'+ (employee.salaryAmount) +'</li></ul> ');
 }
 
+ 
