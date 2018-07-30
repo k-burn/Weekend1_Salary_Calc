@@ -88,7 +88,11 @@ function calculateTotalSalaryCost(){
     $('#totalCostDiv').append('<h4> Total Monthly Salary Expense: $' + totalSalary.toFixed(2) + '</h4>');
     if (totalSalary>20000){
         $('#totalCostDiv').css('color', 'red');
-}
+    }
+    else {
+        $('#totalCostDiv').css('color', 'black');
+    }
+
 
 };
 
