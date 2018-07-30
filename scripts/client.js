@@ -1,6 +1,8 @@
 console.log('JS is properly sourced in');
 
 let employees =[];
+let salaries = [];
+
 class Employee{
     constructor( fName, lName, employeeNumber, jobTitle, salaryAmount ){
       this.fname = fName;
@@ -38,6 +40,8 @@ function collectInputData(){
     let inputTitle = $('#jobTitleInput').val();
     let inputSalary = $('#salaryInput').val();
     console.log(inputFName, inputLName, inputNumber, inputSalary, inputTitle);
+    salaries.push(inputSalary);
+    console.log(salaries);
     
 };
 
@@ -51,7 +55,7 @@ function displayEmployeeArray(){
     $('#tableBody').empty();
     $('#tableBody').append('<tr><th>First Name</th><th>Last Name</th><th>ID Number</th><th>Job Title</th><th>Salary</th><th>  </th></tr>');
     for (employee of employees){
-        $('#tableBody').append('<tr><td>'+ (employee.fname).toUpperCase()+'</td><td>'+ (employee.lname).toUpperCase()+'</td><td>'+ employee.number+'</td><td>'+ (employee.job).toUpperCase()+'</td><td> $'+ parseInt(employee.salaryAmount).toFixed(2) + '</td><td><button class="deleteButton" type="button">Delete Info</button></tr>');
+        $('#tableBody').append('<tr><td>'+ (employee.fname).toUpperCase()+'</td><td>'+ (employee.lname).toUpperCase()+'</td><td>'+ employee.number+'</td><td>'+ (employee.job).toUpperCase()+'</td><td> $'+ parseInt(employee.salaryAmount).toFixed(2) + '</td><td><button class="deleteButton" type="button" data-salary="'+ parseInt(employee.salaryAmount) +'">Delete Info</button></tr>');
     }
 }
 
@@ -75,24 +79,29 @@ function clearInputData(){
 }; */
 
 function calculateTotalSalaryCost(){
-    let totalSalary = 0;
-    for (employee of employees){
-        totalSalary = totalSalary + parseInt(employee.salaryAmount);       
+    let totalSalary=0;
+    for (let salary of salaries){
+        totalSalary= totalSalary + parseInt(salary);
     }
-    console.log(totalSalary);
     totalSalary = totalSalary/12;
-    console.log(totalSalary);
     $('#totalCostDiv').empty();
     $('#totalCostDiv').append('<h4> Total Monthly Salary Expense: $' + totalSalary.toFixed(2) + '</h4>');
     if (totalSalary>20000){
         $('#totalCostDiv').css('color', 'red');
-    }
+}
+
 };
 
 function clickDeleteButton(){
     $('#tableBody').on('click', '.deleteButton', function(){
         console.log('working delete button');
         $(this).parent().parent().remove(); 
+        console.log($(this).parent());
+        console.log(this.getAttribute('data-salary'));
+        let thisSalary= -Math.abs(this.getAttribute('data-salary'));
+        salaries.push(thisSalary);
+        calculateTotalSalaryCost();
+
     })
 };
 function clickFindByNumberButton(){
