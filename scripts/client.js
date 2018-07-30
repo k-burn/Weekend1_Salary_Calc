@@ -26,7 +26,7 @@ function clickSubmitButton() {
          collectInputData()
          employeeArray()
          displayEmployeeArray()
-         //clearInputData()
+         clearInputData()
          calculateTotalSalaryCost()
 
      })  
@@ -66,23 +66,12 @@ function clearInputData(){
     $('#salaryInput').val("");
 };
 
-
-/* function displayInputData() {
-    let inputFName = $('#fNameInput').val();
-    let inputLName = $('#lNameInput').val();
-    let inputNumber = $('#employeeNumberInput').val();
-    let inputTitle = $('#jobTitleInput').val();
-    let inputSalary = $('#salaryInput').val();
-    console.log(inputSalary);
-    $('#employeeTable').append('<tr><td>'+inputFName.toUpperCase()+'</td><td>'+inputLName.toUpperCase()+'</td><td>'+inputNumber+'</td><td>'+inputTitle.toUpperCase()+'</td><td> $'+ parseInt(inputSalary).toFixed(2) +'</td><td><button class="deleteButton" type="button">Delete Info</button></tr>');
-}; */
-
 function calculateTotalSalaryCost(){
     let totalSalary=0;
-    for (let salary of salaries){
-        totalSalary= totalSalary + parseInt(salary);
+    for (let employee of employees){
+        totalSalary= totalSalary + parseInt(employee.salaryAmount);
     }
-    totalSalary = totalSalary/12;
+    totalSalary= totalSalary/12;
     $('#totalCostDiv').empty();
     $('#totalCostDiv').append('<h4> Total Monthly Salary Expense: $' + totalSalary.toFixed(2) + '</h4>');
     if (totalSalary>20000){
@@ -90,7 +79,8 @@ function calculateTotalSalaryCost(){
     }
     else {
         $('#totalCostDiv').css('color', 'black');
-    }
+    } 
+
 
 
 };
@@ -98,12 +88,7 @@ function calculateTotalSalaryCost(){
 function clickDeleteButton(){
     $('#tableBody').on('click', '.deleteButton', function(){
         console.log('working delete button');
-        $(this).parent().parent().remove(); 
         console.log($(this).parent());
-       /*  console.log(this.getAttribute('data-salary'));
-        let thisSalary= -Math.abs(this.getAttribute('data-salary'));
-        salaries.push(thisSalary);
-        calculateTotalSalaryCost(); */
         console.log(this.getAttribute('data-employee-number'));
         let employeeNumberData = this.getAttribute('data-employee-number');
         for (let employee of employees) {
@@ -112,6 +97,9 @@ function clickDeleteButton(){
                 console.log(employee.number);
                 employees.splice((employees.indexOf(employee)),1)
                 console.log(employees);
+                $(this).parent().parent().remove(); 
+                displayEmployeeArray();
+                calculateTotalSalaryCost()
 
             }
         }
